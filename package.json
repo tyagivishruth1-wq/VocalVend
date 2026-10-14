@@ -1,0 +1,1 @@
+{"name":"vocalvend","private":true,"version":"1.0.0","engines":{"node":">=24"},"scripts":{"start":"node server.cjs","test":"node --test backend.test.cjs frontend.test.cjs delivery.test.cjs supply-search.test.cjs review-fields.test.cjs conversations.test.cjs verification.test.cjs price-stats.test.cjs price-chart.test.cjs"}}

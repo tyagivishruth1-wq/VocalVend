@@ -1,0 +1,13 @@
+{
+  "name": "vocalvend",
+  "account_id": "12d814a50d3cd779bd736a76e5d926b7",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-05-15",
+  "workers_dev": true,
+  "d1_databases": [{
+    "binding": "DB",
+    "database_name": "vocalvend-db",
+    "database_id": "0e23972a-af33-4457-87f9-d743af0bd893",
+    "migrations_dir": "../cloud/drizzle"
+  }]
+}

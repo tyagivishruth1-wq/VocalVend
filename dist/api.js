@@ -1,0 +1,4 @@
+let currentUser=null;
+async function api(route,options={}){let response;try{response=await fetch('/api'+route,{credentials:'same-origin',...options,headers:{'Content-Type':'application/json',...options.headers}})}catch{throw new Error('Cannot connect to the server. Please try again.')}let data;try{data=await response.json()}catch{throw new Error('Cannot connect to the server. Please try again.')}if(!response.ok){const error=new Error(data.error||'Please try again.');error.status=response.status;throw error}return data}
+async function refreshMarket(){const result=await api('/products');products=result.products;render();inventory();if(typeof selected!=='undefined'&&selected){const latest=products.find(p=>p.id===selected.id);if(latest)selected=latest}}
+async function refreshOrders(){orders=(await api('/orders')).orders;renderOrders()}
