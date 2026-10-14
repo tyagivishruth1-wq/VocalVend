@@ -6,8 +6,6 @@ A local procurement app with a Node.js backend and a SQLite database. Requires N
 
 New Cloudflare testing address: https://vocalvend.vocalvend-market.workers.dev
 
-Previous testing site: https://vocalvend-market.cosmicflint128.chatgpt.site
-
 Testers create a new account on the site. The hosted copy has its own cloud database and sample inventory; local accounts and orders are not uploaded. Anyone can open the link, but orders, reviews, inventory editing and promotions require account login. Sponsored checkout is still simulated and charges no money. The four sample wholesale businesses can each be linked to one wholesaler account.
 
 The `cloud/` directory contains the hosting implementation and schema migrations. Your original Node/SQLite version below continues to work independently. Cloud publishing uses a Workers-compatible API and D1 database rather than uploading a local SQLite file.
