@@ -52,9 +52,16 @@ Favourite wholesalers, the shopping checklist, and the preferred language remain
 
 ## Scope
 
-The server binds to this computer's loopback address. It is a local academic application with fictional suppliers; orders are database records, not real purchases. Payments, notifications, verified supplier onboarding, password reset, and delivery tracking are not implemented. Internet hosting would need HTTPS and an appropriate backend host; the previous static Sites manifest does not run this Node server.
+The server binds to this computer's loopback address. It is a local academic application with fictional suppliers; orders are database records, not real purchases. Payments, notifications, verified supplier onboarding, password reset, and delivery tracking are not implemented. The online version is already hosted over HTTPS on Cloudflare Workers with a separate D1 database.
 
 
 Wholesaler demo onboarding: wholesalers can log in immediately, but must complete Business verification before adding or editing stock. Fill in sample business details, download the two dummy TXT templates, and upload them with the sample-data consent. Submission automatically unlocks stock in this prototype. This is not real identity verification; do not upload actual identity documents. The backend enforces the requirement and keeps submissions private to their owner.
 
 Regional price chart: vendor market searches populate a supply selector and compare available same-name/same-unit listings within 1, 3 or 5 km of the sample Pune market. The chart shows one lowest listing per wholesaler, median, range and supplier count, with a limited-sample notice below three suppliers. Sample distances are not live geolocation, and delivery is excluded.
+
+
+## Repository contents and deployment
+
+The local database is intentionally excluded. Starting the local server creates `data/vocalvend.sqlite` and initializes sample stock from `seed.json`. Keep local account data and credentials out of Git.
+
+The `cloud/` folder contains only the API, database schema/migrations, preparation script and deployment dependencies. Generated assets and installed packages are not committed. See [Cloudflare deployment instructions](cloudflare/README.md) to publish changes. Tests and fixtures are intentionally retained.

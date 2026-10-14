@@ -1,0 +1,21 @@
+{
+  "name": "vocalvend-cloud",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "prepare": "node prepare.mjs",
+    "test": "node prepare.mjs && node --test backend.test.mjs",
+    "deploy": "node prepare.mjs && node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js deploy --config ../cloudflare/wrangler.jsonc",
+    "db:migrate": "node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js d1 migrations apply DB --remote --config ../cloudflare/wrangler.jsonc",
+    "db:generate": "drizzle-kit generate"
+  },
+  "devDependencies": {
+    "drizzle-kit": "0.31.10",
+    "drizzle-orm": "0.45.2",
+    "wrangler": "4.151.0"
+  }
+}

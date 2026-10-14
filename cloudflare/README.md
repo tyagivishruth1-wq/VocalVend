@@ -1,13 +1,25 @@
 # Cloudflare deployment
 
-This entrypoint runs VocalVend on Cloudflare Workers with its own D1 database at https://vocalvend.vocalvend-market.workers.dev. It reuses the tested cloud API and website assets. No paid plan or payment-provider integration is configured.
+VocalVend runs at https://vocalvend.vocalvend-market.workers.dev using Cloudflare Workers and D1. This folder's Worker imports the API and prepared website assets from ../cloud/. The local SQLite database is not uploaded.
 
-The database and schema are already provisioned in the connected account, and the real database ID is saved in `wrangler.jsonc`. For future updates, log in if necessary, apply any new migrations, then deploy:
+## Publish an update
+
+Open a terminal in the repository root with Node.js 24 or newer installed:
 
 ```powershell
+npm --prefix cloud ci
 node cloud/node_modules/wrangler/bin/wrangler.js login
-node cloud/node_modules/wrangler/bin/wrangler.js d1 migrations apply DB --remote --config cloudflare/wrangler.jsonc
-node cloud/node_modules/wrangler/bin/wrangler.js deploy --config cloudflare/wrangler.jsonc
+npm --prefix cloud run db:migrate
+npm --prefix cloud run deploy
 ```
 
-For future website changes, refresh the shared frontend assets by running `node prepare.mjs` inside `cloud/`, then deploy again. The new database starts with sample stock; existing accounts on the previous testing host are not imported. Testers create new accounts on the new address.
+Login is needed only if your Cloudflare session is not already authorized. Use the account that owns the configured Worker and D1 database. Deploy automatically refreshes website assets before publishing. Apply migrations before deploying changes that add database tables. The existing IDs in wrangler.jsonc refer to the owner's deployment; publishing under another account requires that account's Worker and D1 configuration. Account/database IDs are configuration, not API credentials.
+
+For tests:
+
+```powershell
+npm test
+npm --prefix cloud test
+```
+
+Payments and identity verification remain simulated. Never commit real documents, local databases, environment secrets or Cloudflare tokens.

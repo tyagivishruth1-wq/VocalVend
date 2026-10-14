@@ -1,0 +1,28 @@
+# Installed dependencies and local data
+node_modules/
+/data/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+
+# Credentials and environment files
+.env
+.env.*
+!.env.example
+*.pem
+
+# Generated deployment assets (npm --prefix cloud run prepare)
+/cloud/backend/assets.mjs
+/cloud/shared/config.mjs
+/cloud/seed.json
+
+# Tool caches and logs
+.wrangler/
+.sites-runtime/
+.openai/
+.hosting/
+.next/
+coverage/
+*.log
+*.tar.gz
+.DS_Store
