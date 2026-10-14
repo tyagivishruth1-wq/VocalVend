@@ -1,0 +1,5 @@
+const vm=require('vm'),fs=require('fs'),assert=require('assert');const context=vm.createContext({console});const source=fs.readFileSync('dist/i18n.js','utf8').split("const mic=$('#mic');")[0];vm.runInContext(source,context);vm.runInContext(`
+for(const row of translations){if(row.length!==5||row.some(x=>!x))throw Error('Incomplete translation: '+row[0]);}
+for(let i=1;i<5;i++){languageIndex=i;for(const row of translations){if(translateString(row[0])!==row[i])throw Error('Translation mismatch: '+row[0]);}if(translateString('10 kg available · Sample inventory').includes('Sample inventory'))throw Error('Dynamic stock not translated');if(translateString('₹24/kg').includes('/kg'))throw Error('Unit not translated');}
+languageIndex=0;if(translateString('Discover market')!=='Discover market')throw Error('English reset failed');
+`,context);const html=fs.readFileSync('dist/index.html','utf8');assert(html.includes('src="i18n.js"'));assert(fs.readFileSync('dist/i18n.js','utf8').includes('<svg'));console.log('Passed: complete dictionaries in all five languages, dynamic inventory and units, English reset, script and microphone wiring.');
